@@ -102,7 +102,7 @@ export default function Reports() {
                         {new Date(entry.timestamp).toLocaleString()}
                       </span>
                       <span className="font-mono text-xs text-muted-foreground">
-                        {entry.inputs.slabLength}m × {entry.inputs.slabWidth}m × {entry.inputs.slabThickness}mm
+                        {entry.inputs.slabLength}ft × {entry.inputs.slabWidth}ft × {entry.inputs.slabThickness}in
                       </span>
                       <span className="font-mono text-xs text-muted-foreground">
                         Governing DCR: {entry.governingDCR.toFixed(3)}
