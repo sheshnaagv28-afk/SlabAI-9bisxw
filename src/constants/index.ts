@@ -3,30 +3,30 @@ export const DEFAULT_INPUTS = {
   projectLocation: "Site Location",
   engineer: "Structural Engineer",
   date: new Date().toISOString().split("T")[0],
-  slabLength: 6,
-  slabWidth: 4,
-  slabThickness: 150,
-  coverTop: 40,
-  coverBottom: 50,
-  concreteGrade: 28,
-  steelGrade: 415,
-  soilBearingCapacity: 150,
-  deadLoad: 5,
-  liveLoad: 10,
+  slabLength: 20,
+  slabWidth: 13,
+  slabThickness: 6,
+  coverTop: 1.5,
+  coverBottom: 2,
+  concreteGrade: 4000,
+  steelGrade: 60000,
+  soilBearingCapacity: 3000,
+  deadLoad: 100,
+  liveLoad: 200,
   pointLoad: 0,
   pointLoadX: 0,
   pointLoadY: 0,
-  barDiameterMain: 12,
-  barDiameterDist: 10,
-  spacingMain: 150,
-  spacingDist: 200,
+  barDiameterMain: 0.5,
+  barDiameterDist: 0.375,
+  spacingMain: 6,
+  spacingDist: 8,
   designCode: "ACI318" as const,
   loadCombination: "1.2D + 1.6L",
 };
 
-export const CONCRETE_GRADES_ACI = [21, 24, 28, 35, 42];
+export const CONCRETE_GRADES_ACI = [3000, 3500, 4000, 5000, 6000];
 export const CONCRETE_GRADES_IS = [20, 25, 30, 35, 40, 45];
-export const STEEL_GRADES_ACI = [280, 350, 420, 520];
+export const STEEL_GRADES_ACI = [40000, 50000, 60000, 75000];
 export const STEEL_GRADES_IS = [250, 415, 500, 550];
 
 export const LOAD_COMBINATIONS_ACI = [
