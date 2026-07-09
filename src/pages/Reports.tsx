@@ -28,21 +28,21 @@ export default function Reports() {
   };
 
   const statusColor = (status: string) => {
-    if (status === "PASS") return "text-emerald-400 bg-emerald-500/10";
-    if (status === "WARNING") return "text-amber-400 bg-amber-500/10";
-    if (status === "FAIL") return "text-red-400 bg-red-500/10";
-    return "text-slate-400 bg-slate-500/10";
+    if (status === "PASS") return "text-success bg-success/10";
+    if (status === "WARNING") return "text-warning bg-warning/10";
+    if (status === "FAIL") return "text-destructive bg-destructive/10";
+    return "text-muted-foreground bg-muted";
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-background">
       <Header />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black text-white">Design History & Reports</h1>
-            <p className="text-slate-400 text-sm mt-1">
+            <h1 className="font-heading text-2xl text-foreground">Design History & Reports</h1>
+            <p className="text-muted-foreground text-sm mt-1">
               Last 10 designs — stored locally in your browser
             </p>
           </div>
@@ -52,7 +52,7 @@ export default function Reports() {
                 setHistory([]);
                 localStorage.removeItem("slab-design-history");
               }}
-              className="flex items-center gap-2 text-sm text-red-400 hover:text-red-300 border border-red-500/20 rounded-lg px-3 py-2"
+              className="flex items-center gap-2 text-sm text-destructive hover:text-destructive/80 border border-destructive/30 rounded-[3px] px-3 py-2"
             >
               <Trash2 className="h-4 w-4" />
               Clear All
@@ -62,14 +62,14 @@ export default function Reports() {
 
         {history.length === 0 ? (
           <div className="text-center py-20">
-            <FileText className="h-16 w-16 text-slate-600 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-slate-400">No Reports Yet</h2>
-            <p className="text-slate-500 text-sm mt-2">
+            <FileText className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="font-heading text-xl text-muted-foreground">No Reports Yet</h2>
+            <p className="text-muted-foreground text-sm mt-2">
               Complete a design in the Design Tool to generate reports here.
             </p>
             <a
               href="/design"
-              className="inline-flex mt-6 items-center gap-2 rounded-xl bg-sky-600 px-6 py-3 text-sm font-bold text-white hover:bg-sky-500"
+              className="inline-flex mt-6 items-center gap-2 rounded-[3px] bg-primary px-6 py-3 font-heading text-sm text-primary-foreground hover:bg-primary/90"
             >
               Go to Design Tool
             </a>
@@ -77,33 +77,33 @@ export default function Reports() {
         ) : (
           <div className="space-y-4">
             {history.map((entry) => (
-              <div key={entry.id} className="rounded-xl border border-slate-700 bg-slate-900 overflow-hidden">
+              <div key={entry.id} className="rounded-[3px] border border-border bg-card overflow-hidden">
                 {/* Header Row */}
                 <div
-                  className="flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-slate-800/50 transition-colors"
+                  className="flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-secondary/50 transition-colors"
                   onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3">
-                      <h3 className="text-sm font-bold text-white truncate">
+                      <h3 className="text-sm font-bold text-foreground truncate">
                         {entry.inputs.projectName || "Unnamed Design"}
                       </h3>
-                      <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", statusColor(entry.overallStatus))}>
+                      <span className={cn("font-mono text-xs font-semibold px-2 py-0.5 rounded-[2px]", statusColor(entry.overallStatus))}>
                         {entry.overallStatus}
                       </span>
-                      <span className="text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded-full">
+                      <span className="font-mono text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded-[2px]">
                         {entry.inputs.designCode}
                       </span>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
-                      <span className="text-xs text-slate-500 flex items-center gap-1">
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Clock className="h-3 w-3" />
                         {new Date(entry.timestamp).toLocaleString()}
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span className="font-mono text-xs text-muted-foreground">
                         {entry.inputs.slabLength}m × {entry.inputs.slabWidth}m × {entry.inputs.slabThickness}mm
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span className="font-mono text-xs text-muted-foreground">
                         Governing DCR: {entry.governingDCR.toFixed(3)}
                       </span>
                     </div>
@@ -114,7 +114,7 @@ export default function Reports() {
                         e.stopPropagation();
                         window.print();
                       }}
-                      className="p-2 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-sky-400 transition-colors"
+                      className="p-2 rounded-[3px] hover:bg-secondary text-muted-foreground hover:text-primary transition-colors"
                       title="Print Report"
                     >
                       <Printer className="h-4 w-4" />
@@ -124,21 +124,21 @@ export default function Reports() {
                         e.stopPropagation();
                         deleteEntry(entry.id);
                       }}
-                      className="p-2 rounded-lg hover:bg-slate-700 text-slate-400 hover:text-red-400 transition-colors"
+                      className="p-2 rounded-[3px] hover:bg-secondary text-muted-foreground hover:text-destructive transition-colors"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
                     {expandedId === entry.id ? (
-                      <ChevronUp className="h-4 w-4 text-slate-400" />
+                      <ChevronUp className="h-4 w-4 text-muted-foreground" />
                     ) : (
-                      <ChevronDown className="h-4 w-4 text-slate-400" />
+                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     )}
                   </div>
                 </div>
 
                 {/* Expanded Content */}
                 {expandedId === entry.id && (
-                  <div className="border-t border-slate-700 p-5">
+                  <div className="border-t border-border p-5">
                     {/* Tab bar */}
                     <div className="flex gap-2 mb-5">
                       {(["dashboard", "checks", "diagrams"] as const).map((tab) => (
@@ -146,10 +146,10 @@ export default function Reports() {
                           key={tab}
                           onClick={() => setActiveTab(tab)}
                           className={cn(
-                            "px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors capitalize",
+                            "px-4 py-1.5 rounded-[3px] text-xs font-semibold transition-colors capitalize",
                             activeTab === tab
-                              ? "bg-sky-600 text-white"
-                              : "text-slate-400 hover:text-white border border-slate-700"
+                              ? "bg-primary text-primary-foreground"
+                              : "text-muted-foreground hover:text-foreground border border-border"
                           )}
                         >
                           {tab}

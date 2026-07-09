@@ -4,44 +4,52 @@
 
 @layer base {
   :root {
-    --background: 222 47% 5%;
-    --foreground: 210 40% 96%;
+    /* Field-notebook / instrument-panel palette (warm graphite, drafting paper,
+       steel-blue accent, moss PASS, hazard-orange FAIL). Hex -> HSL. */
+    --background: 84 14% 7%;        /* #12140F warm graphite */
+    --foreground: 46 30% 92%;       /* #F0EDE3 drafting-paper off-white */
 
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 96%;
+    --card: 80 12% 9%;              /* #191B15 surface */
+    --card-foreground: 46 30% 92%;
 
-    --popover: 222 47% 7%;
-    --popover-foreground: 210 40% 96%;
+    --popover: 80 12% 9%;
+    --popover-foreground: 46 30% 92%;
 
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 208 27% 51%;         /* #5F83A3 desaturated steel-blue */
+    --primary-foreground: 46 30% 92%;
 
-    --secondary: 217 32% 17%;
-    --secondary-foreground: 210 40% 96%;
+    --secondary: 80 11% 13%;        /* raised surface */
+    --secondary-foreground: 46 30% 92%;
 
-    --muted: 217 32% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 78 9% 14%;
+    --muted-foreground: 50 7% 51%;  /* #8A8778 concrete-gray */
 
-    --accent: 217 32% 17%;
-    --accent-foreground: 210 40% 96%;
+    --accent: 80 11% 13%;
+    --accent-foreground: 46 30% 92%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 19 70% 51%;      /* #D9622B hazard/safety orange (FAIL) */
+    --destructive-foreground: 46 30% 92%;
 
-    --border: 217 32% 20%;
-    --input: 217 32% 20%;
-    --ring: 199 89% 48%;
+    --success: 106 26% 49%;         /* #6B9D5C muted moss green (PASS) */
+    --success-foreground: 46 30% 92%;
 
-    --radius: 0.75rem;
+    --warning: 40 44% 52%;          /* dull ochre (caution, distinct from FAIL orange) */
+    --warning-foreground: 84 14% 7%;
 
-    --sidebar-background: 222 47% 4%;
-    --sidebar-foreground: 210 40% 96%;
-    --sidebar-primary: 199 89% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 32% 17%;
-    --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 217 32% 20%;
-    --sidebar-ring: 199 89% 48%;
+    --border: 72 10% 19%;           /* #33352B hairline */
+    --input: 72 10% 19%;
+    --ring: 208 27% 51%;
+
+    --radius: 0.25rem;              /* square-ish corners (stamped-sheet feel) */
+
+    --sidebar-background: 84 14% 6%;
+    --sidebar-foreground: 46 30% 92%;
+    --sidebar-primary: 208 27% 51%;
+    --sidebar-primary-foreground: 46 30% 92%;
+    --sidebar-accent: 80 11% 13%;
+    --sidebar-accent-foreground: 46 30% 92%;
+    --sidebar-border: 72 10% 19%;
+    --sidebar-ring: 208 27% 51%;
   }
 }
 
@@ -59,6 +67,20 @@
 
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
+  }
+}
+
+@layer components {
+  /* Expanded grotesk for headings, section titles, and the PASS/FAIL stamp.
+     Applied on top of Tailwind's font-heading family utility. */
+  .font-heading {
+    font-stretch: 125%;
+    letter-spacing: 0.06em;
+  }
+
+  /* Tabular figures so numeric columns/DCR values align like a calc sheet. */
+  .font-mono {
+    font-feature-settings: "tnum" 1, "zero" 1;
   }
 }
 
@@ -87,14 +109,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
+  background: hsl(var(--border));
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: hsl(var(--muted-foreground));
 }

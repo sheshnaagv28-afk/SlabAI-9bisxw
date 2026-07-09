@@ -9,9 +9,9 @@ interface Props {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm text-slate-200 placeholder-slate-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-colors";
+  "w-full rounded-[3px] border border-border bg-background px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors";
 
-const labelClass = "block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wide";
+const labelClass = "block font-mono text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wide";
 
 // Standard US customary rebar sizes (diameter in inches, with bar designation)
 const MAIN_BAR_SIZES = [
@@ -35,7 +35,7 @@ const DIST_BAR_SIZES = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-bold text-sky-400 uppercase tracking-wider border-b border-slate-700 pb-2">
+      <h3 className="font-heading text-sm text-primary uppercase border-b border-border pb-2">
         {title}
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{children}</div>
@@ -75,7 +75,7 @@ export default function DesignForm({ onSubmit, isCalculating, defaultValues }: P
             <option value="IS456">IS 456:2000 (Not yet implemented)</option>
           </select>
           {code === "IS456" && (
-            <p className="mt-2 text-xs text-amber-400 bg-amber-500/10 rounded-lg px-3 py-2">
+            <p className="mt-2 text-xs text-warning bg-warning/10 rounded-[3px] px-3 py-2">
               ⚠️ IS 456:2000 calculations are not yet implemented. Results will show "NOT_IMPLEMENTED" for all checks. Select ACI 318 for full analysis.
             </p>
           )}
@@ -173,7 +173,7 @@ export default function DesignForm({ onSubmit, isCalculating, defaultValues }: P
       <button
         type="submit"
         disabled={isCalculating}
-        className="w-full rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/25 hover:from-sky-400 hover:to-blue-500 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+        className="w-full rounded-[3px] bg-primary px-6 py-3 font-heading text-sm text-primary-foreground hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
       >
         {isCalculating ? "Calculating..." : "Run Design Checks"}
       </button>

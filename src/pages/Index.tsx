@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -13,25 +12,21 @@ const features = [
     icon: Cpu,
     title: "AI Chatbot Assistant",
     desc: "Conversationally collect all design inputs. Get engineering term explanations, default value suggestions, and instant validation.",
-    color: "from-sky-500 to-blue-600",
   },
   {
     icon: Shield,
     title: "ACI 318-19 Calculations",
     desc: "Fully deterministic TypeScript engine. Geometry, bearing, flexure, shear, crack control, and minimum reinforcement checks.",
-    color: "from-emerald-500 to-teal-600",
   },
   {
     icon: BarChart3,
     title: "Interactive Visualizations",
     desc: "Slab plan, reinforcement layout, bending moment diagrams, shear force diagrams, and DCR summary charts.",
-    color: "from-violet-500 to-purple-600",
   },
   {
     icon: FileText,
     title: "Report Generation",
     desc: "Print-ready reports with step-by-step calculations, diagrams, pass/fail results, and AI-assisted recommendations.",
-    color: "from-rose-500 to-pink-600",
   },
 ];
 
@@ -57,36 +52,34 @@ export default function Index() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImg} alt="Grade Slab Design" className="w-full h-full object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/70 to-slate-950" />
+          <img src={heroImg} alt="Grade Slab Design" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-background/85" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-32">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold text-sky-400 mb-6">
+            <div className="inline-flex items-center gap-2 rounded-[3px] border border-border bg-primary/10 px-4 py-1.5 font-mono text-xs font-semibold text-primary mb-6">
               <Zap className="h-3.5 w-3.5" />
               ACI 318-19 · IS 456:2000 · Structural Engineering Platform
             </div>
-            <h1 className="text-5xl sm:text-6xl font-black tracking-tight mb-6 leading-tight">
+            <h1 className="font-heading text-5xl sm:text-6xl mb-6 leading-tight text-foreground">
               AI-Powered{" "}
-              <span className="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
-                Grade Slab
-              </span>
+              <span className="text-primary">Grade Slab</span>
               <br />Design Platform
             </h1>
-            <p className="text-xl text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl mx-auto">
               Code-compliant structural calculations via AI chatbot input, interactive visualizations, and professional report generation — all in your browser.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 onClick={() => navigate("/design")}
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-8 py-4 text-base font-bold text-white shadow-xl shadow-blue-500/30 hover:from-sky-400 hover:to-blue-500 transition-all hover:shadow-blue-500/50 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-[3px] bg-primary px-8 py-4 font-heading text-base text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 <Zap className="h-5 w-5" />
                 Start Designing Now
@@ -94,7 +87,7 @@ export default function Index() {
               </button>
               <Link
                 to="/compare"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-800/50 px-8 py-4 text-base font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-[3px] border border-border bg-card px-8 py-4 text-base font-semibold text-foreground hover:bg-secondary transition-colors"
               >
                 <BookOpen className="h-5 w-5" />
                 Compare ACI vs IS 456
@@ -107,10 +100,10 @@ export default function Index() {
       {/* Features */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-black text-white mb-3">
+          <h2 className="font-heading text-3xl text-foreground mb-3">
             Everything You Need for Grade Slab Design
           </h2>
-          <p className="text-slate-400 max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto">
             From input collection to code compliance verification — one integrated platform.
           </p>
         </div>
@@ -118,15 +111,13 @@ export default function Index() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl border border-slate-700/50 bg-slate-900/60 p-6 hover:border-slate-600 transition-all hover:-translate-y-0.5"
+              className="group rounded-[3px] border border-border bg-card p-6 hover:border-primary/40 transition-colors"
             >
-              <div
-                className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${f.color} mb-4 shadow-lg`}
-              >
-                <f.icon className="h-6 w-6 text-white" />
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-[3px] border border-border bg-primary/15 mb-4">
+                <f.icon className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{f.title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">{f.desc}</p>
+              <h3 className="font-heading text-lg text-foreground mb-2">{f.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>
@@ -134,29 +125,29 @@ export default function Index() {
 
       {/* Design Checks */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 p-8 lg:p-12">
+        <div className="rounded-[4px] border border-border bg-card p-8 lg:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
-              <h2 className="text-3xl font-black text-white mb-4">
+              <h2 className="font-heading text-3xl text-foreground mb-4">
                 8 ACI 318-19 Design Checks
               </h2>
-              <p className="text-slate-400 mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
                 Every calculation is deterministic TypeScript — never AI-generated numbers. Formulas are transparent, step-by-step substitutions are shown, and clause references are provided.
               </p>
               <button
                 onClick={() => navigate("/design")}
-                className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-500 transition-colors"
+                className="inline-flex items-center gap-2 rounded-[3px] bg-primary px-6 py-3 font-heading text-sm text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 Run Your Design
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
             <div className="grid grid-cols-1 gap-2">
-              {checks.map((check, i) => (
-                <div key={check} className="flex items-center gap-3 rounded-lg bg-slate-800/50 px-4 py-2.5">
-                  <CheckCircle className="h-4 w-4 text-emerald-400 flex-shrink-0" />
-                  <span className="text-sm text-slate-300">{check}</span>
-                  <span className="ml-auto text-xs text-slate-500 font-mono">ACI §</span>
+              {checks.map((check) => (
+                <div key={check} className="flex items-center gap-3 rounded-[2px] border border-border bg-background px-4 py-2.5">
+                  <CheckCircle className="h-4 w-4 text-success flex-shrink-0" />
+                  <span className="text-sm text-foreground">{check}</span>
+                  <span className="ml-auto font-mono text-xs text-muted-foreground">ACI §</span>
                 </div>
               ))}
             </div>
@@ -166,30 +157,30 @@ export default function Index() {
 
       {/* Code Support */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-2xl font-black text-white mb-8 text-center">Design Code Support</h2>
+        <h2 className="font-heading text-2xl text-foreground mb-8 text-center">Design Code Support</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {codeSupport.map((item) => (
             <div
               key={item.code}
-              className={`rounded-xl border p-5 ${
+              className={`rounded-[3px] border p-5 ${
                 item.status === "full"
-                  ? "border-emerald-500/30 bg-emerald-500/5"
-                  : "border-slate-700 bg-slate-900/30 opacity-70"
+                  ? "border-success/30 bg-success/5"
+                  : "border-border bg-card opacity-70"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="font-bold text-white">{item.code}</span>
+                <span className="font-heading text-foreground">{item.code}</span>
                 {item.status === "full" ? (
-                  <span className="text-xs font-semibold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">Live</span>
+                  <span className="font-mono text-xs font-semibold bg-success/20 text-success px-2 py-0.5 rounded-[2px]">Live</span>
                 ) : (
-                  <span className="text-xs font-semibold bg-slate-700 text-slate-400 px-2 py-0.5 rounded-full">Roadmap</span>
+                  <span className="font-mono text-xs font-semibold bg-muted text-muted-foreground px-2 py-0.5 rounded-[2px]">Roadmap</span>
                 )}
               </div>
-              <p className="text-xs text-slate-400">{item.desc}</p>
+              <p className="text-xs text-muted-foreground">{item.desc}</p>
             </div>
           ))}
         </div>
-        <p className="text-center text-xs text-amber-400 mt-6 bg-amber-500/10 rounded-lg px-4 py-3 max-w-2xl mx-auto">
+        <p className="text-center text-xs text-warning mt-6 bg-warning/10 rounded-[3px] px-4 py-3 max-w-2xl mx-auto">
           <AlertTriangle className="h-3.5 w-3.5 inline mr-1.5" />
           Unimplemented codes display "NOT_IMPLEMENTED" — they never silently use ACI 318 formulas under a different label.
         </p>
@@ -197,14 +188,14 @@ export default function Index() {
 
       {/* CTA */}
       <section className="py-20 px-4 text-center">
-        <div className="inline-block rounded-2xl bg-gradient-to-r from-sky-500/10 to-blue-600/10 border border-sky-500/20 px-12 py-12 max-w-2xl">
-          <h2 className="text-3xl font-black text-white mb-3">Ready to Design?</h2>
-          <p className="text-slate-400 mb-8">
+        <div className="inline-block rounded-[4px] border border-border bg-card px-12 py-12 max-w-2xl">
+          <h2 className="font-heading text-3xl text-foreground mb-3">Ready to Design?</h2>
+          <p className="text-muted-foreground mb-8">
             Start with the AI chatbot or fill the manual form. Results in seconds.
           </p>
           <button
             onClick={() => navigate("/design")}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-10 py-4 text-base font-bold text-white shadow-xl shadow-blue-500/25 hover:from-sky-400 hover:to-blue-500 transition-all"
+            className="inline-flex items-center gap-2 rounded-[3px] bg-primary px-10 py-4 font-heading text-base text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <Zap className="h-5 w-5" />
             Launch Design Tool
@@ -213,7 +204,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8 text-center text-xs text-slate-500 px-4">
+      <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground px-4">
         <p className="mb-2">
           SlabAI — Grade Slab Design Platform | ACI 318-19 · IS 456:2000
         </p>
