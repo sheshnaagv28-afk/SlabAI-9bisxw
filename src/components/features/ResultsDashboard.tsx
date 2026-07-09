@@ -9,17 +9,28 @@ interface Props {
   results: DesignResults;
 }
 
+// Palette hex values — used only where a charting engine or raw text color is
+// required (mirrors the --success / --warning / --destructive tokens).
+const CHART = {
+  pass: "#6B9D5C",
+  warn: "#BA974F",
+  fail: "#D9622B",
+  grid: "#33352B",
+  axis: "#8A8778",
+  surface: "#191B15",
+} as const;
+
 const statusConfig = {
-  PASS: { color: "text-emerald-400", bg: "bg-emerald-500/15 border-emerald-500/30", icon: CheckCircle, label: "DESIGN PASS" },
-  WARNING: { color: "text-amber-400", bg: "bg-amber-500/15 border-amber-500/30", icon: AlertTriangle, label: "NEEDS REVIEW" },
-  FAIL: { color: "text-red-400", bg: "bg-red-500/15 border-red-500/30", icon: XCircle, label: "DESIGN FAIL" },
-  NOT_IMPLEMENTED: { color: "text-slate-400", bg: "bg-slate-500/15 border-slate-500/30", icon: AlertTriangle, label: "NOT IMPLEMENTED" },
+  PASS: { color: "text-success", border: "border-success/40", icon: CheckCircle, label: "DESIGN PASS" },
+  WARNING: { color: "text-warning", border: "border-warning/40", icon: AlertTriangle, label: "NEEDS REVIEW" },
+  FAIL: { color: "text-destructive", border: "border-destructive/40", icon: XCircle, label: "DESIGN FAIL" },
+  NOT_IMPLEMENTED: { color: "text-muted-foreground", border: "border-border", icon: AlertTriangle, label: "NOT IMPLEMENTED" },
 };
 
 function dcrColor(dcr: number): string {
-  if (dcr > 1.0) return "#ef4444";
-  if (dcr >= 0.8) return "#f59e0b";
-  return "#10b981";
+  if (dcr > 1.0) return CHART.fail;
+  if (dcr >= 0.8) return CHART.warn;
+  return CHART.pass;
 }
 
 export default function ResultsDashboard({ results }: Props) {
@@ -43,21 +54,21 @@ export default function ResultsDashboard({ results }: Props) {
   return (
     <div className="space-y-6">
       {/* Overall Status */}
-      <div className={cn("rounded-2xl border-2 p-6 text-center", config.bg)}>
+      <div className={cn("rounded-[4px] border bg-card p-6 text-center", config.border)}>
         <Icon className={cn("h-12 w-12 mx-auto mb-3", config.color)} />
-        <h2 className={cn("text-2xl font-black tracking-tight", config.color)}>{config.label}</h2>
-        <p className="text-slate-300 mt-1 text-sm">
-          Governing: <span className="font-semibold text-white">{governingCheck}</span>
+        <h2 className={cn("font-heading text-2xl", config.color)}>{config.label}</h2>
+        <p className="text-muted-foreground mt-1 text-sm">
+          Governing: <span className="font-mono font-semibold text-foreground">{governingCheck}</span>
         </p>
-        <div className="mt-4 inline-flex items-center gap-3 bg-slate-900/50 rounded-xl px-6 py-3">
+        <div className="mt-4 inline-flex items-center gap-3 rounded-[3px] border border-border bg-background px-6 py-3">
           <div>
-            <p className="text-xs text-slate-400">Governing DCR</p>
-            <p className={cn("text-3xl font-black", config.color)}>{governingDCR.toFixed(3)}</p>
+            <p className="text-xs text-muted-foreground">Governing DCR</p>
+            <p className={cn("font-mono text-3xl font-bold tabular-nums", config.color)}>{governingDCR.toFixed(3)}</p>
           </div>
-          <div className="w-px h-10 bg-slate-600" />
+          <div className="w-px h-10 bg-border" />
           <div>
-            <p className="text-xs text-slate-400">Design Code</p>
-            <p className="text-lg font-bold text-white">{inputs.designCode}</p>
+            <p className="text-xs text-muted-foreground">Design Code</p>
+            <p className="font-mono text-lg font-bold text-foreground">{inputs.designCode}</p>
           </div>
         </div>
       </div>
@@ -90,42 +101,42 @@ export default function ResultsDashboard({ results }: Props) {
             sub: `${checks.filter((c) => c.status === "PASS").length} passed`,
           },
         ].map((card) => (
-          <div key={card.label} className="rounded-xl border border-slate-700 bg-slate-800/50 p-4">
-            <card.icon className="h-5 w-5 text-sky-400 mb-2" />
-            <p className="text-xs text-slate-400">{card.label}</p>
-            <p className="text-lg font-bold text-white mt-0.5">{card.value}</p>
-            <p className="text-xs text-slate-500 mt-0.5">{card.sub}</p>
+          <div key={card.label} className="rounded-[3px] border border-border bg-card p-4">
+            <card.icon className="h-5 w-5 text-primary mb-2" />
+            <p className="text-xs text-muted-foreground">{card.label}</p>
+            <p className="font-mono text-lg font-bold text-foreground mt-0.5 tabular-nums">{card.value}</p>
+            <p className="font-mono text-xs text-muted-foreground mt-0.5">{card.sub}</p>
           </div>
         ))}
       </div>
 
       {/* DCR Chart */}
       {dcrData.length > 0 && (
-        <div className="rounded-xl border border-slate-700 bg-slate-800/50 p-4">
-          <h3 className="text-sm font-bold text-slate-200 mb-4">Design Capacity Ratios (DCR)</h3>
+        <div className="rounded-[3px] border border-border bg-card p-4">
+          <h3 className="font-heading text-sm text-foreground mb-4">Design Capacity Ratios (DCR)</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={dcrData} layout="vertical" margin={{ left: 0, right: 30 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART.grid} horizontal={false} />
               <XAxis
                 type="number"
                 domain={[0, Math.max(1.2, ...dcrData.map((d) => d.dcr))]}
-                tick={{ fontSize: 11, fill: "#94a3b8" }}
+                tick={{ fontSize: 11, fill: CHART.axis, fontFamily: "'IBM Plex Mono', monospace" }}
                 tickLine={false}
               />
               <YAxis
                 type="category"
                 dataKey="name"
                 width={140}
-                tick={{ fontSize: 10, fill: "#94a3b8" }}
+                tick={{ fontSize: 10, fill: CHART.axis, fontFamily: "'IBM Plex Mono', monospace" }}
                 tickLine={false}
               />
               <Tooltip
-                contentStyle={{ backgroundColor: "#1e293b", border: "1px solid #334155", borderRadius: "8px", fontSize: "12px" }}
+                contentStyle={{ backgroundColor: CHART.surface, border: `1px solid ${CHART.grid}`, borderRadius: "2px", fontSize: "12px", fontFamily: "'IBM Plex Mono', monospace" }}
                 formatter={(v: number) => [v.toFixed(3), "DCR"]}
               />
-              <ReferenceLine x={1.0} stroke="#ef4444" strokeDasharray="4 4" label={{ value: "1.0", fill: "#ef4444", fontSize: 10 }} />
-              <ReferenceLine x={0.8} stroke="#f59e0b" strokeDasharray="4 4" />
-              <Bar dataKey="dcr" radius={[0, 4, 4, 0]}>
+              <ReferenceLine x={1.0} stroke={CHART.fail} strokeDasharray="4 4" label={{ value: "1.0", fill: CHART.fail, fontSize: 10 }} />
+              <ReferenceLine x={0.8} stroke={CHART.warn} strokeDasharray="4 4" />
+              <Bar dataKey="dcr">
                 {dcrData.map((entry, i) => (
                   <Cell key={i} fill={dcrColor(entry.dcr)} />
                 ))}
@@ -137,20 +148,20 @@ export default function ResultsDashboard({ results }: Props) {
 
       {/* Recommendations */}
       {recommendations.length > 0 && (
-        <div className="rounded-xl border border-sky-500/20 bg-sky-500/5 p-4">
-          <h3 className="text-sm font-bold text-sky-400 mb-3 flex items-center gap-2">
+        <div className="rounded-[3px] border border-border bg-card p-4">
+          <h3 className="font-heading text-sm text-primary mb-3 flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
             AI-Assisted Recommendations
           </h3>
           <ul className="space-y-2">
             {recommendations.map((rec, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-sky-500 flex-shrink-0" />
+              <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
                 {rec}
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-slate-500">
+          <p className="mt-3 text-xs text-muted-foreground">
             Recommendations are generated deterministically from calculation results — not by AI inference.
           </p>
         </div>

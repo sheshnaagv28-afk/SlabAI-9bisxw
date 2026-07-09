@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 
@@ -89,53 +90,53 @@ const keyDiffs = [
 
 export default function Compare() {
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-background">
       <Header />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-black text-white mb-3">
+          <h1 className="font-heading text-3xl text-foreground mb-3">
             ACI 318-19 vs IS 456:2000
           </h1>
-          <p className="text-slate-400 max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto">
             Side-by-side comparison of design methodology, load factors, material parameters, and code provisions.
           </p>
-          <div className="mt-4 inline-flex items-center gap-2 text-xs text-amber-400 bg-amber-500/10 rounded-lg px-4 py-2">
+          <div className="mt-4 inline-flex items-center gap-2 text-xs text-warning bg-warning/10 rounded-[3px] px-4 py-2">
             <XCircle className="h-3.5 w-3.5" />
             IS 456 calculations are not yet implemented. Only ACI 318 is active in the design tool.
           </div>
         </div>
 
         {/* Column headers */}
-        <div className="grid grid-cols-[200px_1fr_1fr] gap-px rounded-xl overflow-hidden border border-slate-700 mb-1">
-          <div className="bg-slate-800 px-4 py-3" />
-          <div className="bg-gradient-to-r from-sky-600 to-blue-700 px-4 py-3 flex items-center gap-2">
-            <CheckCircle className="h-4 w-4 text-white" />
-            <span className="text-sm font-bold text-white">ACI 318-19</span>
-            <span className="ml-auto text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">Active</span>
+        <div className="grid grid-cols-[200px_1fr_1fr] gap-px rounded-[3px] overflow-hidden border border-border mb-1">
+          <div className="bg-secondary px-4 py-3" />
+          <div className="bg-primary px-4 py-3 flex items-center gap-2">
+            <CheckCircle className="h-4 w-4 text-primary-foreground" />
+            <span className="font-heading text-sm text-primary-foreground">ACI 318-19</span>
+            <span className="ml-auto font-mono text-xs bg-background/25 text-primary-foreground px-2 py-0.5 rounded-[2px]">Active</span>
           </div>
-          <div className="bg-slate-700 px-4 py-3 flex items-center gap-2">
-            <XCircle className="h-4 w-4 text-slate-400" />
-            <span className="text-sm font-bold text-slate-300">IS 456:2000</span>
-            <span className="ml-auto text-xs bg-slate-600 text-slate-400 px-2 py-0.5 rounded-full">Roadmap</span>
+          <div className="bg-secondary px-4 py-3 flex items-center gap-2">
+            <XCircle className="h-4 w-4 text-muted-foreground" />
+            <span className="font-heading text-sm text-foreground">IS 456:2000</span>
+            <span className="ml-auto font-mono text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-[2px]">Roadmap</span>
           </div>
         </div>
 
         {/* Comparison rows */}
-        <div className="rounded-xl overflow-hidden border border-slate-700">
+        <div className="rounded-[3px] overflow-hidden border border-border">
           {comparisonData.map((row, i) => (
             <div
               key={row.category}
-              className={`grid grid-cols-[200px_1fr_1fr] gap-px ${i % 2 === 0 ? "bg-slate-800/30" : "bg-slate-800/60"} border-b border-slate-700/50 last:border-0`}
+              className={`grid grid-cols-[200px_1fr_1fr] gap-px ${i % 2 === 0 ? "bg-card" : "bg-secondary/40"} border-b border-border last:border-0`}
             >
-              <div className="px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center">
+              <div className="px-4 py-3 font-mono text-xs font-bold text-muted-foreground uppercase tracking-wide flex items-center">
                 {row.category}
               </div>
-              <div className="px-4 py-3 text-sm text-slate-200 border-l border-slate-700/50">
+              <div className="px-4 py-3 text-sm text-foreground border-l border-border">
                 {row.aci}
               </div>
-              <div className="px-4 py-3 text-sm text-slate-400 border-l border-slate-700/50">
+              <div className="px-4 py-3 text-sm text-muted-foreground border-l border-border">
                 {row.is}
               </div>
             </div>
@@ -144,19 +145,19 @@ export default function Compare() {
 
         {/* Key Differences */}
         <div className="mt-12">
-          <h2 className="text-xl font-black text-white mb-6">Key Conceptual Differences</h2>
+          <h2 className="font-heading text-xl text-foreground mb-6">Key Conceptual Differences</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {keyDiffs.map((diff) => (
-              <div key={diff.aspect} className="rounded-xl border border-slate-700 bg-slate-900 p-5">
-                <h3 className="text-sm font-bold text-sky-400 mb-3">{diff.aspect}</h3>
+              <div key={diff.aspect} className="rounded-[3px] border border-border bg-card p-5">
+                <h3 className="font-heading text-sm text-primary mb-3">{diff.aspect}</h3>
                 <div className="space-y-3">
                   <div>
-                    <span className="text-xs font-semibold text-emerald-400 uppercase">ACI 318-19</span>
-                    <p className="text-sm text-slate-300 mt-1">{diff.aci}</p>
+                    <span className="font-mono text-xs font-semibold text-success uppercase">ACI 318-19</span>
+                    <p className="text-sm text-foreground mt-1">{diff.aci}</p>
                   </div>
-                  <div className="border-t border-slate-700 pt-3">
-                    <span className="text-xs font-semibold text-slate-400 uppercase">IS 456:2000</span>
-                    <p className="text-sm text-slate-400 mt-1">{diff.is}</p>
+                  <div className="border-t border-border pt-3">
+                    <span className="font-mono text-xs font-semibold text-muted-foreground uppercase">IS 456:2000</span>
+                    <p className="text-sm text-muted-foreground mt-1">{diff.is}</p>
                   </div>
                 </div>
               </div>
@@ -165,22 +166,22 @@ export default function Compare() {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-10 rounded-xl border border-amber-500/20 bg-amber-500/5 p-5">
-          <h3 className="text-sm font-bold text-amber-400 mb-2">Engineering Disclaimer</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
+        <div className="mt-10 rounded-[3px] border border-warning/25 bg-warning/5 p-5">
+          <h3 className="font-heading text-sm text-warning mb-2">Engineering Disclaimer</h3>
+          <p className="text-xs text-muted-foreground leading-relaxed">
             This comparison is for educational reference only. Clause numbers and provisions should be verified against the latest published editions of ACI 318 and IS 456. Design methodology selection must be based on project jurisdiction, applicable regulations, and engineer judgment. Always consult a licensed structural engineer for project-specific decisions.
           </p>
         </div>
 
         {/* CTA */}
         <div className="mt-8 text-center">
-          <a
-            href="/design"
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-8 py-3 text-sm font-bold text-white"
+          <Link
+            to="/design"
+            className="inline-flex items-center gap-2 rounded-[3px] bg-primary px-8 py-3 font-heading text-sm text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Run ACI 318 Design Tool
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
