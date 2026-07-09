@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import ResultsDashboard from "@/components/features/ResultsDashboard";
 import ChecksList from "@/components/features/ChecksList";
@@ -67,12 +68,12 @@ export default function Reports() {
             <p className="text-muted-foreground text-sm mt-2">
               Complete a design in the Design Tool to generate reports here.
             </p>
-            <a
-              href="/design"
+            <Link
+              to="/design"
               className="inline-flex mt-6 items-center gap-2 rounded-[3px] bg-primary px-6 py-3 font-heading text-sm text-primary-foreground hover:bg-primary/90"
             >
               Go to Design Tool
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="space-y-4">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 
@@ -174,13 +175,13 @@ export default function Compare() {
 
         {/* CTA */}
         <div className="mt-8 text-center">
-          <a
-            href="/design"
+          <Link
+            to="/design"
             className="inline-flex items-center gap-2 rounded-[3px] bg-primary px-8 py-3 font-heading text-sm text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Run ACI 318 Design Tool
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
