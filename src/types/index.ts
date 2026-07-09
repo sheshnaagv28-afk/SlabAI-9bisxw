@@ -9,29 +9,29 @@ export interface SlabInputs {
   date: string;
 
   // Geometry
-  slabLength: number;       // m
-  slabWidth: number;        // m
-  slabThickness: number;    // mm
-  coverTop: number;         // mm
-  coverBottom: number;      // mm
+  slabLength: number;       // ft
+  slabWidth: number;        // ft
+  slabThickness: number;    // in
+  coverTop: number;         // in
+  coverBottom: number;      // in
 
   // Materials
-  concreteGrade: number;    // f'c MPa (ACI) or fck MPa (IS456)
-  steelGrade: number;       // fy MPa
-  soilBearingCapacity: number; // kN/m²
+  concreteGrade: number;    // f'c psi (ACI) or fck MPa (IS456)
+  steelGrade: number;       // fy psi
+  soilBearingCapacity: number; // psf
 
   // Loads
-  deadLoad: number;         // kN/m²
-  liveLoad: number;         // kN/m²
-  pointLoad: number;        // kN (optional)
-  pointLoadX: number;       // m from edge
-  pointLoadY: number;       // m from edge
+  deadLoad: number;         // psf
+  liveLoad: number;         // psf
+  pointLoad: number;        // kips (optional)
+  pointLoadX: number;       // ft from edge
+  pointLoadY: number;       // ft from edge
 
   // Reinforcement
-  barDiameterMain: number;  // mm
-  barDiameterDist: number;  // mm
-  spacingMain: number;      // mm
-  spacingDist: number;      // mm
+  barDiameterMain: number;  // in
+  barDiameterDist: number;  // in
+  spacingMain: number;      // in
+  spacingDist: number;      // in
 
   // Design Code
   designCode: DesignCode;
