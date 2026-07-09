@@ -25,3 +25,4 @@ dist-ssr
 .playwright-mcp/
 /home.png
 /redesign-home.png
+.vercel
