@@ -13,6 +13,25 @@ const inputClass =
 
 const labelClass = "block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wide";
 
+// Standard US customary rebar sizes (diameter in inches, with bar designation)
+const MAIN_BAR_SIZES = [
+  { d: 0.375, label: '#3 (0.375")' },
+  { d: 0.5, label: '#4 (0.500")' },
+  { d: 0.625, label: '#5 (0.625")' },
+  { d: 0.75, label: '#6 (0.750")' },
+  { d: 1.0, label: '#8 (1.000")' },
+  { d: 1.128, label: '#9 (1.128")' },
+  { d: 1.27, label: '#10 (1.270")' },
+];
+
+const DIST_BAR_SIZES = [
+  { d: 0.25, label: '#2 (0.250")' },
+  { d: 0.375, label: '#3 (0.375")' },
+  { d: 0.5, label: '#4 (0.500")' },
+  { d: 0.625, label: '#5 (0.625")' },
+  { d: 0.75, label: '#6 (0.750")' },
+];
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-4">
@@ -73,81 +92,81 @@ export default function DesignForm({ onSubmit, isCalculating, defaultValues }: P
 
       <Section title="Slab Geometry">
         <div>
-          <label className={labelClass}>Length (m)</label>
-          <input {...register("slabLength", { valueAsNumber: true })} type="number" step="0.1" min="0.5" className={inputClass} />
+          <label className={labelClass}>Length (ft)</label>
+          <input {...register("slabLength", { valueAsNumber: true })} type="number" step="0.5" min="2" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Width (m)</label>
-          <input {...register("slabWidth", { valueAsNumber: true })} type="number" step="0.1" min="0.5" className={inputClass} />
+          <label className={labelClass}>Width (ft)</label>
+          <input {...register("slabWidth", { valueAsNumber: true })} type="number" step="0.5" min="2" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Thickness (mm)</label>
-          <input {...register("slabThickness", { valueAsNumber: true })} type="number" step="5" min="75" className={inputClass} />
+          <label className={labelClass}>Thickness (in)</label>
+          <input {...register("slabThickness", { valueAsNumber: true })} type="number" step="0.25" min="3" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Cover Bottom (mm)</label>
-          <input {...register("coverBottom", { valueAsNumber: true })} type="number" step="5" min="20" className={inputClass} />
+          <label className={labelClass}>Cover Bottom (in)</label>
+          <input {...register("coverBottom", { valueAsNumber: true })} type="number" step="0.25" min="0.75" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Cover Top (mm)</label>
-          <input {...register("coverTop", { valueAsNumber: true })} type="number" step="5" min="20" className={inputClass} />
+          <label className={labelClass}>Cover Top (in)</label>
+          <input {...register("coverTop", { valueAsNumber: true })} type="number" step="0.25" min="0.75" className={inputClass} />
         </div>
       </Section>
 
       <Section title="Materials">
         <div>
-          <label className={labelClass}>f'c or fck (MPa)</label>
-          <input {...register("concreteGrade", { valueAsNumber: true })} type="number" step="1" min="17" className={inputClass} />
+          <label className={labelClass}>f'c or fck (psi)</label>
+          <input {...register("concreteGrade", { valueAsNumber: true })} type="number" step="100" min="2500" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>fy (MPa)</label>
-          <input {...register("steelGrade", { valueAsNumber: true })} type="number" step="10" min="200" className={inputClass} />
+          <label className={labelClass}>fy (psi)</label>
+          <input {...register("steelGrade", { valueAsNumber: true })} type="number" step="1000" min="29000" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Soil Bearing (kN/m²)</label>
-          <input {...register("soilBearingCapacity", { valueAsNumber: true })} type="number" step="10" min="10" className={inputClass} />
+          <label className={labelClass}>Soil Bearing (psf)</label>
+          <input {...register("soilBearingCapacity", { valueAsNumber: true })} type="number" step="100" min="200" className={inputClass} />
         </div>
       </Section>
 
       <Section title="Applied Loads">
         <div>
-          <label className={labelClass}>Dead Load (kN/m²)</label>
-          <input {...register("deadLoad", { valueAsNumber: true })} type="number" step="0.5" min="0" className={inputClass} />
+          <label className={labelClass}>Dead Load (psf)</label>
+          <input {...register("deadLoad", { valueAsNumber: true })} type="number" step="10" min="0" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Live Load (kN/m²)</label>
-          <input {...register("liveLoad", { valueAsNumber: true })} type="number" step="0.5" min="0" className={inputClass} />
+          <label className={labelClass}>Live Load (psf)</label>
+          <input {...register("liveLoad", { valueAsNumber: true })} type="number" step="10" min="0" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Point Load (kN)</label>
-          <input {...register("pointLoad", { valueAsNumber: true })} type="number" step="1" min="0" className={inputClass} />
+          <label className={labelClass}>Point Load (kips)</label>
+          <input {...register("pointLoad", { valueAsNumber: true })} type="number" step="0.25" min="0" className={inputClass} />
         </div>
       </Section>
 
       <Section title="Reinforcement">
         <div>
-          <label className={labelClass}>Main Bar Ø (mm)</label>
+          <label className={labelClass}>Main Bar Ø (in)</label>
           <select {...register("barDiameterMain", { valueAsNumber: true })} className={inputClass}>
-            {[8, 10, 12, 16, 20, 25, 32].map((d) => (
-              <option key={d} value={d}>{d} mm</option>
+            {MAIN_BAR_SIZES.map(({ d, label }) => (
+              <option key={d} value={d}>{label}</option>
             ))}
           </select>
         </div>
         <div>
-          <label className={labelClass}>Main Bar Spacing (mm)</label>
-          <input {...register("spacingMain", { valueAsNumber: true })} type="number" step="25" min="50" max="600" className={inputClass} />
+          <label className={labelClass}>Main Bar Spacing (in)</label>
+          <input {...register("spacingMain", { valueAsNumber: true })} type="number" step="1" min="2" max="24" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Dist. Bar Ø (mm)</label>
+          <label className={labelClass}>Dist. Bar Ø (in)</label>
           <select {...register("barDiameterDist", { valueAsNumber: true })} className={inputClass}>
-            {[6, 8, 10, 12, 16].map((d) => (
-              <option key={d} value={d}>{d} mm</option>
+            {DIST_BAR_SIZES.map(({ d, label }) => (
+              <option key={d} value={d}>{label}</option>
             ))}
           </select>
         </div>
         <div>
-          <label className={labelClass}>Dist. Bar Spacing (mm)</label>
-          <input {...register("spacingDist", { valueAsNumber: true })} type="number" step="25" min="50" max="600" className={inputClass} />
+          <label className={labelClass}>Dist. Bar Spacing (in)</label>
+          <input {...register("spacingDist", { valueAsNumber: true })} type="number" step="1" min="2" max="24" className={inputClass} />
         </div>
       </Section>
 
