@@ -24,14 +24,14 @@ export default function BearingPressureDiagram({ inputs, bearingPressure }: Prop
     <div className="space-y-2">
       <h3 className="font-heading text-sm text-foreground">Soil Bearing Pressure Distribution</h3>
       <p className="font-mono text-xs text-muted-foreground">
-        q_actual = {bearingPressure.toFixed(1)} kN/m² | q_allow = {soilBearingCapacity} kN/m² | DCR = {dcr.toFixed(2)}
+        q_actual = {bearingPressure.toFixed(1)} psf | q_allow = {soilBearingCapacity} psf | DCR = {dcr.toFixed(2)}
       </p>
       <div className="rounded-[3px] bg-card border border-border p-3 overflow-x-auto">
         <svg width={W} height={H + 30} viewBox={`0 0 ${W} ${H + 30}`} className="mx-auto">
           {/* Slab rectangle */}
           <rect x={PAD} y={PAD / 2} width={innerW} height={PAD * 0.7} fill="#12140F" stroke="#5F83A3" strokeWidth="1.5" rx="2" />
           <text x={PAD + innerW / 2} y={PAD / 2 + PAD * 0.4} fill="#5F83A3" fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">
-            Grade Slab ({slabLength}m × {slabWidth}m)
+            Grade Slab ({slabLength}ft × {slabWidth}ft)
           </text>
 
           {/* Soil below slab */}
@@ -71,7 +71,7 @@ export default function BearingPressureDiagram({ inputs, bearingPressure }: Prop
             textAnchor="middle"
             fontFamily="'IBM Plex Mono', monospace"
           >
-            q = {bearingPressure.toFixed(1)} kN/m²
+            q = {bearingPressure.toFixed(1)} psf
           </text>
 
           {/* Allowable capacity line */}
@@ -92,7 +92,7 @@ export default function BearingPressureDiagram({ inputs, bearingPressure }: Prop
             textAnchor="end"
             fontFamily="'IBM Plex Mono', monospace"
           >
-            q_allow = {soilBearingCapacity} kN/m²
+            q_allow = {soilBearingCapacity} psf
           </text>
 
           {/* DCR badge */}

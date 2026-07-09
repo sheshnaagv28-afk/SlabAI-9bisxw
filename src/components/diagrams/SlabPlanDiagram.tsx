@@ -21,13 +21,13 @@ export default function SlabPlanDiagram({ inputs }: Props) {
   const barCountDist = Math.min(10, Math.floor(innerW / 30));
 
   const d = slabThickness - coverBottom - barDiameterMain / 2;
-  const effectiveDepthMm = d.toFixed(0);
+  const effectiveDepthIn = d.toFixed(2);
 
   return (
     <div className="space-y-2">
       <h3 className="font-heading text-sm text-foreground">Slab Plan & Reinforcement Layout</h3>
       <p className="font-mono text-xs text-muted-foreground">
-        {slabLength}m × {slabWidth}m × {slabThickness}mm | d = {effectiveDepthMm}mm
+        {slabLength}ft × {slabWidth}ft × {slabThickness}in | d = {effectiveDepthIn}in
       </p>
       <div className="rounded-[3px] bg-card border border-border p-3 overflow-x-auto">
         <svg width={W + PAD} height={H + PAD * 2} viewBox={`0 0 ${W + PAD} ${H + PAD * 2}`} className="mx-auto">
@@ -54,7 +54,7 @@ export default function SlabPlanDiagram({ inputs }: Props) {
           {/* Width dimension (top) */}
           <line x1={PAD} y1={PAD - 15} x2={PAD + innerW} y2={PAD - 15} stroke="#8A8778" strokeWidth="1" markerEnd="url(#arrow)" markerStart="url(#arrow)" />
           <text x={PAD + innerW / 2} y={PAD - 18} textAnchor="middle" fill="#8A8778" fontSize="11" fontWeight="600" fontFamily="'IBM Plex Mono', monospace">
-            {slabLength}m
+            {slabLength}ft
           </text>
 
           {/* Height dimension (left) */}
@@ -69,23 +69,23 @@ export default function SlabPlanDiagram({ inputs }: Props) {
             fontFamily="'IBM Plex Mono', monospace"
             transform={`rotate(-90, ${PAD - 18}, ${PAD + innerH / 2})`}
           >
-            {slabWidth}m
+            {slabWidth}ft
           </text>
 
           {/* Legend */}
           <line x1={PAD} y1={PAD + innerH + 12} x2={PAD + 25} y2={PAD + innerH + 12} stroke="#5F83A3" strokeWidth="2" />
           <text x={PAD + 28} y={PAD + innerH + 16} fill="#8A8778" fontSize="9" fontFamily="'IBM Plex Mono', monospace">
-            Main ø{barDiameterMain}@{spacingMain}mm
+            Main ø{barDiameterMain}in @ {spacingMain}in
           </text>
           <line x1={PAD + 120} y1={PAD + innerH + 12} x2={PAD + 145} y2={PAD + innerH + 12} stroke="#8A8778" strokeWidth="2" />
           <text x={PAD + 148} y={PAD + innerH + 16} fill="#8A8778" fontSize="9" fontFamily="'IBM Plex Mono', monospace">
-            Dist. ø{barDiameterDist}@{spacingDist}mm
+            Dist. ø{barDiameterDist}in @ {spacingDist}in
           </text>
 
           {/* Cover indicator */}
           <rect x={PAD} y={PAD} width={8} height={8} fill="none" stroke="#BA974F" strokeWidth="1" strokeDasharray="2 2" />
           <text x={PAD + 10} y={PAD + 18} fill="#BA974F" fontSize="8" fontFamily="'IBM Plex Mono', monospace">
-            Cover {coverBottom}mm
+            Cover {coverBottom}in
           </text>
         </svg>
       </div>

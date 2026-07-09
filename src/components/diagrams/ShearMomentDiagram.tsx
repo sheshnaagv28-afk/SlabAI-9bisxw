@@ -51,7 +51,7 @@ export default function ShearMomentDiagram({ flexureCheck, shearCheck, inputs }:
     <div className="space-y-2">
       <h3 className="font-heading text-sm text-foreground">Bending Moment & Shear Force Diagrams</h3>
       <p className="font-mono text-xs text-muted-foreground">
-        Span: {slabLength}m | wu = {Wu.toFixed(1)} kN/m² | Mu = {demandMu.toFixed(1)} kN·m/m | Vu = {demandVu.toFixed(1)} kN/m
+        Span: {slabLength}ft | wu = {Wu.toFixed(1)} psf | Mu = {demandMu.toFixed(1)} lb-ft/ft | Vu = {demandVu.toFixed(1)} lb/ft
       </p>
       <div className="rounded-[3px] bg-card border border-border p-3 overflow-x-auto">
         <svg width={W} height={H * 1.5} viewBox={`0 0 ${W} ${H * 1.5}`} className="mx-auto">
@@ -96,7 +96,7 @@ export default function ShearMomentDiagram({ flexureCheck, shearCheck, inputs }:
 
           {/* Peak label */}
           <text x={PAD_L + innerW / 2} y={PAD_T + 8} fill="#5F83A3" fontSize="10" textAnchor="middle">
-            {demandMu.toFixed(1)} kN·m/m
+            {demandMu.toFixed(1)} lb-ft/ft
           </text>
 
           {/* SFD Title */}
@@ -132,7 +132,7 @@ export default function ShearMomentDiagram({ flexureCheck, shearCheck, inputs }:
             +{demandVu.toFixed(1)}
           </text>
           <text x={PAD_L + 4} y={PAD_T + innerH + 20 + innerH * 0.5 + 12} fill="#8A8778" fontSize="9">
-            -{demandVu.toFixed(1)} kN/m
+            -{demandVu.toFixed(1)} lb/ft
           </text>
 
           {/* Capacity line for shear */}
@@ -148,7 +148,7 @@ export default function ShearMomentDiagram({ flexureCheck, shearCheck, inputs }:
 
           {/* Span label */}
           <text x={PAD_L + innerW / 2} y={H * 1.5 - 5} fill="#8A8778" fontSize="10" textAnchor="middle">
-            Span: {slabLength}m
+            Span: {slabLength}ft
           </text>
 
           {/* Legend */}

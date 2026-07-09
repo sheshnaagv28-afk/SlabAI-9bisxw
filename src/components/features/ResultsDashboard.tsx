@@ -46,10 +46,21 @@ export default function ResultsDashboard({ results }: Props) {
       status: c.status,
     }));
 
-  // Material quantities
-  const slabVolume = inputs.slabLength * inputs.slabWidth * (inputs.slabThickness / 1000);
-  const astMain = (Math.PI * inputs.barDiameterMain ** 2 / 4) * (1000 / inputs.spacingMain);
-  const steelKg = astMain * slabVolume * 7850 / 1e6; // rough estimate
+  // Material quantities (US customary / imperial)
+  // Slab dims: length/width in ft, thickness in in → convert thickness to ft.
+  const slabVolume =
+    inputs.slabLength * inputs.slabWidth * (inputs.slabThickness / 12); // ft³
+
+  // Rough reinforcement weight estimate (both directions), in pounds.
+  // Steel density ≈ 0.2836 lb/in³ (490 lb/ft³). Bar dia & spacing are in inches.
+  const STEEL_DENSITY_LB_IN3 = 0.2836;
+  const barArea = (dia: number): number => (Math.PI * dia * dia) / 4; // in²
+  const mainBarCount = (inputs.slabWidth * 12) / inputs.spacingMain; // bars across width
+  const distBarCount = (inputs.slabLength * 12) / inputs.spacingDist; // bars along length
+  const steelVolume =
+    mainBarCount * (inputs.slabLength * 12) * barArea(inputs.barDiameterMain) +
+    distBarCount * (inputs.slabWidth * 12) * barArea(inputs.barDiameterDist); // in³
+  const steelLb = steelVolume * STEEL_DENSITY_LB_IN3; // lb
 
   return (
     <div className="space-y-6">
@@ -79,20 +90,20 @@ export default function ResultsDashboard({ results }: Props) {
           {
             icon: Layers,
             label: "Slab Volume",
-            value: `${slabVolume.toFixed(2)} m³`,
-            sub: `${inputs.slabLength}×${inputs.slabWidth}×${inputs.slabThickness}mm`,
+            value: `${slabVolume.toFixed(1)} ft³`,
+            sub: `${inputs.slabLength}ft × ${inputs.slabWidth}ft × ${inputs.slabThickness}in`,
           },
           {
             icon: TrendingUp,
             label: "Total Load",
-            value: `${(inputs.deadLoad + inputs.liveLoad).toFixed(1)} kN/m²`,
+            value: `${(inputs.deadLoad + inputs.liveLoad).toFixed(0)} psf`,
             sub: `DL: ${inputs.deadLoad} + LL: ${inputs.liveLoad}`,
           },
           {
             icon: Hammer,
             label: "Est. Steel",
-            value: `~${steelKg.toFixed(0)} kg`,
-            sub: `ø${inputs.barDiameterMain}@${inputs.spacingMain}mm`,
+            value: `~${steelLb.toFixed(0)} lb`,
+            sub: `ø${inputs.barDiameterMain}in @ ${inputs.spacingMain}in`,
           },
           {
             icon: CheckCircle,
